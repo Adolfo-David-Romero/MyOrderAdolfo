@@ -13,7 +13,7 @@ struct MyOrderAdolfoApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            OrderView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

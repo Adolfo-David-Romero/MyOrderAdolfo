@@ -8,15 +8,32 @@
 import SwiftUI
 
 struct PizzaListView: View {
+    @StateObject var viewModel = PizzaOrderViewModel()
     var body: some View {
         NavigationStack{
             VStack{
-                Text("list view")
-            }
-        }.navigationTitle("Pizza List View")
+                List{
+                    ForEach(viewModel.pizzaOrders){ order in
+                        NavigationLink(destination: PizzaOrderView(order: order)){
+                            Text("\(order.pizza_type ?? "N/A")")
+                        }
+                        
+                    }.onDelete(perform: { indexSet in
+                        viewModel.deletePizzaOrder(indexSet: indexSet)
+                        
+                    })
+                    
+                }.toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        EditButton()
+                    }
+                    
+                }
+            }.navigationTitle("Pizza List View")
+        }.environmentObject(viewModel)
     }
 }
 
 #Preview {
-    PizzaListView()
+    PizzaListView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
