@@ -39,8 +39,17 @@ struct OrderView: View {
                     }
                 }
                 
+            }.navigationTitle("Order").toolbar{
+                ToolbarItem(placement: .bottomBar){
+                    NavigationLink(destination: PizzaListView()){
+                        Text("Submit Order").padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                }
             }
-        }.navigationTitle("Order View")
+        }
     }
 }
 
