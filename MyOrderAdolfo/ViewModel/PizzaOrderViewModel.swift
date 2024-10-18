@@ -47,6 +47,7 @@ class PizzaOrderViewModel : ObservableObject {
         
         SaveData()
         fetchPizzaOrders()
+        print("addPizzaOrder: Succesfully added order")
     }
     func deletePizzaOrder( indexSet : IndexSet){
         for index in indexSet {
@@ -55,6 +56,7 @@ class PizzaOrderViewModel : ObservableObject {
             SaveData()
             fetchPizzaOrders()
         }
+        print("deletePizzaOrder: Succesfully deleted order")
     }
     func updatePizzaOrder( id : UUID, newQuantity : Int){
         for pizzaOrder in pizzaOrders {
@@ -65,6 +67,7 @@ class PizzaOrderViewModel : ObservableObject {
         
         SaveData()
         fetchPizzaOrders()
+        print("updatePizzaOrder: Succesfully updated order, Quantity \(newQuantity)")
     }
     let itemFormatter: DateFormatter = {
         let formatter = DateFormatter()

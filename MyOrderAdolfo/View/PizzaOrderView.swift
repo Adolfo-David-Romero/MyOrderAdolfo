@@ -11,26 +11,39 @@ struct PizzaOrderView: View {
     @EnvironmentObject var viewModel : PizzaOrderViewModel
     @ObservedObject var order : PizzaOrder
     
-    @State var newQuantity:Int = 1
+    
+    @State var newQuantity = 1
     var body: some View {
-        VStack{
+        VStack(spacing: 0){
             List{
-                Text("\(order.pizza_type!), Order #: \(order.id?.uuidString ?? "N/A")").font(.largeTitle)
-                Text("Order Time: \(order.timestamp!, formatter: viewModel.itemFormatter)").font(.subheadline)
-            }
-            List{
+                Text("Order #: \(order.id?.uuidString ?? "N/A")").font(.callout).bold()
+                Text("Order Time: \(order.timestamp!)").font(.callout).bold()
                 Text("Pizza type: \(order.pizza_type!)").font(.callout)
                 Text("Quantity: \(order.quantity)")
                 Text("Pizza Size: \(order.size!)").font(.callout)
                 Text("Pizza Crust: \(order.crust!)").font(.callout)
+                Spacer()
+                Stepper(value: $newQuantity, in: 1...50, step: 1) {
+                    Text("Select New Quantity: \(newQuantity)").font(.largeTitle).bold()
+                }
             }
-            Stepper(value: $newQuantity, in: 1...50, step: 1) {
-                Text("Select Quantity: \(newQuantity)")
+            
+            
+            
+        }.navigationTitle("Pizza Order Info: \(order.pizza_type!)").toolbar{
+            ToolbarItem(placement: .bottomBar){
+                Button(
+                    action: {
+                        viewModel.updatePizzaOrder(id: order.id!, newQuantity: newQuantity)
+                    },
+                       label: {
+                           Text("Update Order")
+                       }
+                )
             }
-            
-            
-        }.navigationTitle("Pizza Order Info \(order.id?.uuidString ?? "N/A")").toolbar{
-            
+        }.onAppear {
+            // Initialize the new quantity with the current order quantity
+            newQuantity = Int(order.quantity)
         }
     }
 }

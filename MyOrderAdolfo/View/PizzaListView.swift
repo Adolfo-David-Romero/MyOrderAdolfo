@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PizzaListView: View {
-    @StateObject var viewModel = PizzaOrderViewModel()
+    @EnvironmentObject var viewModel: PizzaOrderViewModel
     var body: some View {
         NavigationStack{
             VStack{

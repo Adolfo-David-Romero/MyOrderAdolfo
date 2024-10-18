@@ -13,7 +13,7 @@ struct OrderView: View {
     @State private var selectedCrust: PizzaCrusts = .regular
     @State private var selectedQuantity: Int = 1
     
-    @StateObject var viewModel = PizzaOrderViewModel()
+    @EnvironmentObject var viewModel: PizzaOrderViewModel
     @State private var isNavigate = false
     var body: some View {
         NavigationStack{
@@ -45,7 +45,7 @@ struct OrderView: View {
             }.navigationTitle("Order").toolbar{
                 ToolbarItem(placement: .bottomBar){
                     NavigationLink(destination: PizzaListView()){
-                        Text("Go to Detail View").padding().background(Color.blue).foregroundColor(.white).cornerRadius(8)
+                        Text("Complete Order").padding().background(Color.blue).foregroundColor(.white).cornerRadius(8)
                     }.onAppear(){
                         viewModel.addPizzaOrder(size: selectedSize.rawValue, pizzaType: selectedTopping.rawValue, crust: selectedCrust.rawValue, quantity: selectedQuantity)
                     }

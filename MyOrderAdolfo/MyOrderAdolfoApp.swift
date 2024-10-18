@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct MyOrderAdolfoApp: App {
     let persistenceController = PersistenceController.shared
+    @StateObject var viewModel = PizzaOrderViewModel()
+
 
     var body: some Scene {
         WindowGroup {
             OrderView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(viewModel)
         }
     }
 }
