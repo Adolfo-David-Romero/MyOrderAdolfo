@@ -3,7 +3,7 @@
 //  MyOrderAdolfo
 //
 //  Created by David Romero on 2024-10-18.
-//
+//  Student ID: 991555778
 
 import SwiftUI
 
@@ -24,7 +24,7 @@ struct PizzaOrderView: View {
                 Text("Pizza Crust: \(order.crust!)").font(.callout)
                 Spacer()
                 Stepper(value: $newQuantity, in: 1...50, step: 1) {
-                    Text("Select New Quantity: \(newQuantity)").font(.largeTitle).bold()
+                    Text("Select New Quantity: \(newQuantity)").font(.callout).bold()
                 }
             }
             
@@ -37,13 +37,12 @@ struct PizzaOrderView: View {
                         viewModel.updatePizzaOrder(id: order.id!, newQuantity: newQuantity)
                     },
                        label: {
-                           Text("Update Order")
+                           Text("Update Order").padding().background(Color.blue).foregroundColor(.white).cornerRadius(8)
                        }
                 )
             }
         }.onAppear {
-            // Initialize the new quantity with the current order quantity
-            newQuantity = Int(order.quantity)
+            newQuantity = Int(order.quantity) // Initialize the new quantity with the current order quantity
         }
     }
 }

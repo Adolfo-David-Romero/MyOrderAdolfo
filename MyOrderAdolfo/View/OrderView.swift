@@ -11,7 +11,7 @@ struct OrderView: View {
     @State private var selectedSize: PizzaSizes = .medium
     @State private var selectedTopping: PizzaToppings = .pepperoni
     @State private var selectedCrust: PizzaCrusts = .regular
-    @State private var selectedQuantity: Int = 1
+    @State private var selectedQuantity = 1
     
     @EnvironmentObject var viewModel: PizzaOrderViewModel
     @State private var isNavigate = false
@@ -37,8 +37,10 @@ struct OrderView: View {
                         Text("Medium Crust").tag(PizzaCrusts.regular)
                         Text("Large Crust").tag(PizzaCrusts.thick)
                     }.pickerStyle(.automatic)
-                    Stepper(value: $selectedQuantity, in: 1...50, step: 1) {
-                        Text("Select Quantity: \(selectedQuantity)")
+                    Picker("Select Quantity", selection: $selectedQuantity) {
+                        ForEach(1...50, id: \.self) { number in
+                            Text("\(number)").tag(number)
+                        }
                     }
                 }
                 
@@ -47,7 +49,7 @@ struct OrderView: View {
                     NavigationLink(destination: PizzaListView()){
                         Text("Complete Order").padding().background(Color.blue).foregroundColor(.white).cornerRadius(8)
                     }.onAppear(){
-                        viewModel.addPizzaOrder(size: selectedSize.rawValue, pizzaType: selectedTopping.rawValue, crust: selectedCrust.rawValue, quantity: selectedQuantity)
+                        viewModel.addPizzaOrder(size: selectedSize.rawValue, pizzaType: selectedTopping.rawValue, crust: selectedCrust.rawValue, quantity: Int(selectedQuantity))
                     }
                     
                 }

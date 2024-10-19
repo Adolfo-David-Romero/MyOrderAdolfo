@@ -3,7 +3,7 @@
 //  MyOrderAdolfo
 //
 //  Created by David Romero on 2024-10-18.
-//
+//  Student ID: 991555778
 
 import SwiftUI
 
@@ -15,7 +15,7 @@ struct PizzaListView: View {
                 List{
                     ForEach(viewModel.pizzaOrders){ order in
                         NavigationLink(destination: PizzaOrderView(order: order)){
-                            Text("\(order.pizza_type ?? "N/A")")
+                            Text("\(order.size ?? "N/A"), \(order.pizza_type ?? "N/A")")
                         }
                         
                     }.onDelete(perform: { indexSet in
